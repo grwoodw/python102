@@ -1,7 +1,7 @@
 ---
 title: Connecting to and pulling data from databases
 teaching: 60
-exercises: 30
+exercises: 15
 questions:
 - "How can I get real data?"
 objectives:
