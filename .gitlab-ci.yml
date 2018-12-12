@@ -1,0 +1,10 @@
+pages:
+  stage: deploy
+  image: ruby:2.1
+  script:
+  - jekyll build -d public
+  artifacts:
+    paths:
+    - public
+  only:
+  - external
