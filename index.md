@@ -14,9 +14,6 @@ research.
 
 
 > ## Prerequisites
-> In this workshop we will use the CADRE cluster to work in desktop sandboxes.
-> If you do not have an account on the cluster please contact 
-> the CADRE service desk at:816-881-6880 or servicedesk@kc.frbres.org<br>
 > In this lesson we use Anaconda Python.
 > Some previous experience with the python is required.
 > If you have no python experience Software Carpentry's 
