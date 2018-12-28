@@ -144,7 +144,7 @@ def floydWarshall_p2(i, g, n, k):
 
 def floydWarshall_p1(g):
     n = g.shape[0]
-    pool = mp.Pool(processes=mp.core_count())
+    pool = mp.Pool(processes=mp.cpu_count())
     for k in range(n):
         p = partial(floydWarshall_p2, g=g,n=n,k=k)
         result_list = pool.map( p,range(n))

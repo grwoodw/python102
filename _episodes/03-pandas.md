@@ -342,6 +342,8 @@ Load the file using `pd.read_csv` and plot just the adjusted close values:
 *Note: There are a few extra commands included here to format the plot and make the dates visible.  Don't worry if you don't understand them now, we will cover more about matplotlib later*
 
 ~~~
+import matplotlib.pyplot as plt
+
 # simple function to format plot to make the dates legible
 def plot_dates(df):
     fig, ax = plt.subplots()
@@ -361,6 +363,8 @@ plot_dates(data['Adj Close'])
 Next we'll calculate the log returns and plot them, this time using a pandas dataframe function called `pct_change()`.  We could use the same NumPy method for calculating the log returns, but using the pandas function we keep the indices for the data (dates)
 
 ~~~
+import numpy as np
+
 log_returns = np.log(1 + data['Adj Close'].pct_change())
 plot_dates(log_returns)
 ~~~
