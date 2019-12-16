@@ -30,7 +30,8 @@ uses MATLAB like commands for creating simple plots.  For more documentation on 
 Since we will be using both pandas and matplotlib we will verify that both are installed
 
 ~~~
-(testEnv) $ conda list | egrep 'pandas|matplotlib'
+(python102) $ !conda list | grep 'matplotlib'
+(python102) $ !conda list | grep 'pandas'
 pandas                    0.22.0           py36hf484d3e_0  
 pandas-datareader         0.5.0                    py36_0  
 ~~~
@@ -38,7 +39,7 @@ pandas-datareader         0.5.0                    py36_0
 *Note: This module assumes you are using anaconda3. Anaconda has it's own package manager called conda. For standard python use pip. ex:*
 
 ~~~
-(testEnv) $ pip freeze | egrep 'pandas|matplotlib'
+(python102) $ pip freeze | grep 'pandas|matplotlib'
 pandas==0.22.0
 pandas-datareader==0.5.0
 ~~~
@@ -47,14 +48,14 @@ pandas-datareader==0.5.0
 If matplotlib or pandas-datareader is not installed, install it with conda:
 
 ~~~
-(testEnv) $ conda install matplotlib pandas-datareader
+(python102) $ conda install matplotlib pandas-datareader
 ~~~
 {: .bash}
 
 If you are using standard python and pandas and/or pandas-datareader are not installed, install it with pip:
 
 ~~~
-(testEnv) $ pip install matplotlib pandas pandas-datareader
+(python102) $ pip install matplotlib pandas pandas-datareader
 ~~~
 {: .bash}
 
@@ -234,7 +235,7 @@ In this section we will pull data from FRED and plot the data.
 ~~~
 import pandas_datareader as pdr
 import datetime as dt
-start = dt.datetime(2005,1,1)
+start = dt.datetime(1992,1,1)
 end = dt.datetime.today()
 df = pdr.data.get_data_fred(['HPIPONM226S','MSACSR'], start = start, end = end)
 print(df.tail())
@@ -285,7 +286,7 @@ plt.show()
 {: .python}
 ![p9a](../fig/matplotlib/p9a.png)
 
-With these two plots in separate subplots we can see more variation in the Monthly supploy of houses.
+With these two plots in separate subplots we can see more variation in the Monthly supply of houses.
 Note that the tick labels, axis labels and titles have written over eachother. Use ```plt.tight_layout()```
 to automatically adjust the subplot params to make space for tick labels, axis labels and titles.
 

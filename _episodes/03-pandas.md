@@ -159,18 +159,20 @@ Pandas has two primary types of indexing:
 **.loc**: is label and index based:
 
 ~~~
-print(df.loc['a'],'\n')
-print(df.loc['a','10x'],'\n')
-print(df.loc['a':'d','10x'],'\n')
+print(df.loc['a'])
+print('----------------')
+print(df.loc['a','10x'])
+print('----------------')
+print(df.loc['a':'d','10x'])
 ~~~
 {: .python}
 ~~~
 numbers     10
 10x        100
 Name: a, dtype: int64 
-
+----------------
 100 
-
+----------------
 a    100
 b    200
 c    300
@@ -182,18 +184,20 @@ Name: 10x, dtype: int64
 **.iloc**: is integer position based (from 0 to length-1)
 
 ~~~
-print(df.iloc[0],'\n')
-print(df.iloc[0,1],'\n')
-print(df.iloc[0:3,1],'\n')
+print(df.iloc[0])
+print('----------------')
+print(df.iloc[0,1])
+print('----------------')
+print(df.iloc[0:3,1])
 ~~~
 {: .python}
 ~~~
 numbers     10
 10x        100
 Name: a, dtype: int64 
-
+----------------
 100 
-
+----------------
 a    100
 b    200
 c    300
@@ -422,7 +426,7 @@ from pandas.tseries.holiday import USFederalHolidayCalendar
 from pandas.tseries.offsets import CustomBusinessDay
 
 us_bd = CustomBusinessDay(calendar=USFederalHolidayCalendar())
-prediction_dates = pd.DatetimeIndex(start=data.index[-1], periods=100, freq=us_bd)
+prediction_dates = pd.date_range(start=data.index[-1], periods=100, freq=us_bd)
 returns_dates = pd.DataFrame(returns,index=prediction_dates)
 plot_dates(returns_dates)
 ~~~

@@ -23,7 +23,7 @@ First we'll verify that pandas and pandas-datareader are installed:
 
 
 ~~~
-(testEnv) $ conda list | grep pandas
+(python102) $ conda list | grep pandas
 pandas                    0.22.0           py36hf484d3e_0  
 pandas-datareader         0.5.0                    py36_0  
 ~~~
@@ -34,7 +34,7 @@ called conda.  For standard python use pip.  ex:*
 
 
 ~~~
-(testEnv) $ pip freeze | grep pandas
+(python102) $ pip freeze | grep pandas
 pandas==0.22.0
 pandas-datareader==0.5.0
 ~~~
@@ -44,14 +44,14 @@ By default anaconda comes with pandas.  If pandas-datareader is not installed, i
 
 
 ~~~
-(testEnv) $ conda install pandas-datareader
+(python102) $ conda install pandas-datareader
 ~~~
 {: .bash}
 
 If you are using standard python and pandas and/or pandas-datareader are not installed, install it with pip:
 
 ~~~
-(testEnv) $ pip install pandas pandas-datareader
+(python102) $ pip install pandas pandas-datareader
 ~~~
 {: .bash}
 
@@ -65,7 +65,6 @@ for a partial list of data series available through FRED.
 
 Pandas-datareader requires start and end times for pulling data series so we will import the 
 pandas_datareader and datetime packages and define start and end dates.
-
 
 ~~~
 import pandas_datareader as pdr
@@ -116,7 +115,6 @@ only have to worry about four:
  
 Let's give it a try with the "CONSUMER" dataseries:
 
-
 ~~~
 df = pdr.data.DataReader("CONSUMER","fred", start, end)
 print(df.head(n=5)) #show the first 5 results
@@ -135,6 +133,25 @@ DATE
 562
 ~~~
 {: .output}
+
+> ## Proxies
+>
+> If you are behind a firewall you may have to setup a session with a proxy to connect to some databases.  Contact your system administrater for details.
+>
+> ~~~
+> import requests
+> proxies = {
+>     'http': 'http://your.proxy.org:8080',
+>     'https': 'https://yourproxy.org:8080'
+> }
+> session = requests.Session()
+> session.proxies = proxies
+>
+> df = pdr.data.DataReader("CONSUMER","fred", start, end, session=session)
+> ~~~
+> {: .python}
+>
+{: .callout}
 
 *Note: you can omit the start and/or end date but beware the default for start is Jan. 1, 2010.
 The default for end is today* 
@@ -181,7 +198,7 @@ using a list in place of a single name:
 
 ~~~
 df = pdr.data.get_data_fred(["CONSUMER","MORTG","TCU"], start, end)
-print(df.head(n=5)) #show the first 5 results.  Should be the same as the above results
+print(df.head(n=5)) #show the first 5 results. 
 ~~~
 {: .python}
 ~~~
@@ -218,23 +235,25 @@ DATE
 You can access a plethora of data sources using pandas [data reader](https://pandas-datareader.readthedocs.io/en/latest/remote_data.html#)  
 *Note: Yahoo and Google have changed their API and access is no longer reliable.*
 
-### IEX
-The Investors Exchange (IEX) provides historical stock prices for up to 5 years.
+### STOOQ
+Stooq is a Polish website that provides historical stock prices for up to 5 years.
 
 ~~~
+# S&P 500 
+# https://stooq.com/q/?s=^spx
 start = datetime.date.today() - datetime.timedelta(days=5*365)
-df = pdr.data.DataReader("F",'iex',start,end)
+df = pdr.data.DataReader('^SPX', 'stooq', start, end, session=session) 
 print(df.tail(n=5))
 ~~~
 {: .python}
 ~~~
-            open  high   low  close    volume
-date                                         
-2018-11-26  9.23  9.53  9.17   9.40  46304425
-2018-11-27  9.37  9.43  9.25   9.28  34283203
-2018-11-28  9.27  9.44  9.17   9.41  33199483
-2018-11-29  9.37  9.44  9.26   9.37  29207626
-2018-11-30  9.37  9.48  9.36   9.41  36269456
+               Open     High      Low    Close        Volume
+Date                                                        
+2014-12-19  2061.04  2077.85  2061.03  2070.65  1.634076e+09
+2014-12-18  2018.98  2061.23  2018.98  2061.23  6.673249e+08
+2014-12-17  1973.77  2016.75  1973.77  2012.89  6.587955e+08
+2014-12-16  1986.71  2016.89  1972.56  1972.74  6.902862e+08
+2014-12-15  2005.03  2018.69  1982.26  1989.63  6.700109e+08
 ~~~
 {: .output}
 
@@ -250,7 +269,7 @@ date
 > > ~~~
 > > import matplotlib.pyplot as plt
 > > start = datetime.date.today() - datetime.timedelta(days=5*365)
-> > df = pdr.data.DataReader(["BNO","WTI","DRIP","UCO"],'iex',start,end)
+> > df = pdr.data.DataReader(["BNO.US","WTI.US","DRIP.US","UCO.US"],'stooq',start,end)
 > > plt.plot(df)
 > > plt.show()
 > > ~~~
@@ -264,7 +283,7 @@ date
 
 ## SQL Databases
 --- 
-Most databases use some form of SQL (Structured Query Language) and many of them do not have convenient API's like FRED or IEX.  For these databases we must mix Python with SQL.  In this section we will use SQLite, which is a self contained SQL database engine and will be enough for us to get our feet wet with SQL database interaction.
+Most databases use some form of SQL (Structured Query Language) and many of them do not have convenient API's like FRED or STOOQ.  For these databases we must mix Python with SQL.  In this section we will use SQLite, which is a self contained SQL database engine and will be enough for us to get our feet wet with SQL database interaction.
 
 The basic element of most python SQL interaction is the `connection` object.  There are three primary functions associated with a `connection` object:
 - cursor()
@@ -320,7 +339,7 @@ print(c.fetchone())
 ~~~
 {: .output}
 
-Usually database interaction is not this simple and we will want to construct SQL statements based on logic and variables.  Do not use standard python String construction methods, this leaves your program vulnerable to SQL injection attacks.  Instead, use the DB-API’s parameter substitution. Put ? as a placeholder wherever you want to use a value, and then provide a tuple of values as the second argument to the cursor’s execute() method
+Usually database interaction is not this simple and we will want to construct SQL statements based on logic and variables.  
 
 ~~~
 t = ('RHAT',)
@@ -332,6 +351,12 @@ print(c.fetchone())
 ('2006-01-05', 'BUY', 'RHAT', 100.0, 35.14)
 ~~~
 {:.output}
+
+> ## Note on creating SQL statements
+>
+> Do not use standard python String construction methods, this leaves your program vulnerable to SQL injection attacks.  Instead, use the DB-API’s parameter substitution. Put ? as a placeholder wherever you want to use a value, and then provide a tuple of values as the second argument to the cursor’s execute() method
+> 
+{: .callout}
 
 Multiple inserts can be done with the executemany command:
 

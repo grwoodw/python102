@@ -48,7 +48,7 @@ $ conda create --name testEnv2 python=2.7
 Now activate your environment with:
 
 ~~~
-$ source activate testEnv
+$ conda activate testEnv
 (testEnv) $
 ~~~
 {: .bash}
@@ -140,15 +140,21 @@ dependencies.  Export your environment with:
 ~~~
 {: .bash}
 
+> ## Exporting Environments in PowerShell
+> 
+> In windows powershell I found using `>` to save my output to file saved the data in an odd format.  Instead I had to use `conda env export | Out-File -FilePath .\environment.yml -Encoding ASCII` to force an encoding that would work
+>
+{: .callout}
+
 You could then share this yaml file with others so they could load the same python 
 environment you have been working in.  To simplify sharing I have provided a yaml
-file to share with you: [testEnv2.yml](../files/testEnv2.yml)  Right click and select 
+file to share with you: [python102.yml](../files/python102-linux.yml) (linux) or [python102.yml](../files/python102-windows.yml) (windows) Right click and select 
 "save link as" to download and save the file to your current working directory.
 
 Exit your current environment with:
 
 ~~~
-$ source deactivate
+$ conda deactivate
 ~~~
 {: .bash}
 
@@ -157,20 +163,20 @@ Notice the command prompt has changed back and no longer shows the environment n
 To load and activate the environment I have shared with you:
 
 ~~~
-$ conda env create -f testEnv2.yml 
+$ conda env create -f python102.yml 
 Using Anaconda API: https://api.anaconda.org
 Fetching package metadata ...........
 Solving package specifications: .
 #
 # To activate this environment, use:
-# > source activate testEnv2
+# > conda activate python102
 #
 # To deactivate an active environment, use:
-# > source deactivate
+# > conda deactivate
 #
 
-$ source activate testEnv2
-(testEnv2) $
+$ conda activate python102
+(python102) $
 ~~~
 {: .bash}
 
@@ -180,24 +186,18 @@ If you have created a new environment from a file and are unsure of the name you
 can look at a list of all of your environments with:
 
 ~~~
-(testEnv2) $ conda info --envs
+(python102) $ conda info --envs
 # conda environments:
 #
+python102             *  /home/user/.conda/envs/python102
 testEnv                  /home/user/.conda/envs/testEnv
-testEnv2              *  /home/user/.conda/envs/testEnv2
+testEnv2                 /home/user/.conda/envs/testEnv2
 root                     /software/anaconda/3
 ~~~
 {: .bash}
 
 *Note: the asterisks indicates the active environment.*
 
-Let's switch back to our python 3 environment before we continue to the next tutorial:
-
-~~~
-(testEnv2) $ source activate testEnv
-(testEnv) $ 
-~~~
-{: .bash}
 
 
 

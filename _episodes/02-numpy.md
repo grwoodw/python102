@@ -21,14 +21,14 @@ keypoints:
 Verify numpy is installed
 
 ~~~
-(testEnv) $ conda list | egrep 'numpy'
+(python102) $ conda list | grep 'numpy'
 numpy                     1.13.3
 ~~~
 {: .bash}
 *Note: This module assumes you are using anaconda3. Anaconda has it's own package manager called conda. For standard python use pip. ex:*
 
 ~~~
-(testEnv) $ pip freeze | egrep 'numpy'
+(python102) $ pip freeze | grep 'numpy'
 numpy==1.13.3
 ~~~
 {: .bash}
@@ -36,14 +36,14 @@ numpy==1.13.3
 If numpy is not installed, install it with conda:
 
 ~~~
-(testEnv) $ conda install numpy
+(python102) $ conda install numpy
 ~~~
 {: .bash}
 
 If you are using standard python and numpy is not installed, install it with pip:
 
 ~~~
-(testEnv) $ pip install numpy
+(python102) $ pip install numpy
 ~~~
 {: .bash}
 
@@ -128,7 +128,7 @@ print(z)
 ~~~
 {: .python}
 
-NumPy all the features of a good scientific calculater and then sum:
+NumPy has all the features of a good scientific calculater and then sum:
 
 ~~~
 # sums all values of y

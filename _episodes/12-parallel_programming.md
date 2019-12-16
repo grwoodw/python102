@@ -13,6 +13,20 @@ keypoints:
 
 CPU clock speeds have been fairly stagnant for years.  To make our tasks finish in less time and sell new processors Engineers have had to get creative.  They have tried improving and increasing cache, new memory models and fetching techniques but so far the most successful has been increasing the number of cores or processors on a CPU.  Unfortunately this is not a plug and play solution for most software.  Software has to be written to take advantage of multiple cores or processors and not all problems are well suited to parallel processing.  To take advantage of parallel architectures problems must have sections of work that can be processed independently.  Parallel programming takes time to master, in this module we hope to get your feet wet with a couple examples and provide references for continued learning.
 
+> ## Note on Parallel Programming in Windows
+>
+> Parallel programming in windows can be a little more challenging and yield smaller gains than the same process in linux.  This is due to the way the Operating Systems handle multiple threads and processes.  One of these challenges is parallel code will not run in Jupyter Notebooks (ipython interpreter) on windows, while it works just fine in linux.  To get around this in windows we can write our script in a `.py` file and run it from the command line with `$ python myScript.py`.  One other challenge is that these scripts must have a main function defined.  So create a starting point for your script in an if statement like you see below:
+>
+> ~~~
+> if __name__ == '__main__':
+>     grid_size = 512
+>     graph = generate_grid(grid_size)
+>     . . . 
+> ~~~
+> {: .python}
+{: .callout}
+
+
 ## All Pairs Shortest Path
 ---
 We'll work through an example trying to find the all pairs shortest path in a weighted directed network graph using the Floyd Warshall algorithm.  First we'll create our graph and network path weights.  The graph and weights are represented by a 2d matrix where `grid[r,c]` is the cost to go from node `r` to node `c` where no connection is represented by a weight of infinity.  We'll create this as a function so we can use it over and over again.
