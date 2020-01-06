@@ -148,7 +148,7 @@ dependencies.  Export your environment with:
 
 You could then share this yaml file with others so they could load the same python 
 environment you have been working in.  To simplify sharing I have provided a yaml
-file to share with you: [python102.yml](../files/python102-linux.yml) (linux) or [python102.yml](../files/python102-windows.yml) (windows) Right click and select 
+file to share with you: [python102.yml](../files/python102-linux.yml) (linux) or [python102.yml](../files/python102-windows.yml) (windows) or [python102.yml](../files/python102-OSX.yml) (OSX) Right click and select 
 "save link as" to download and save the file to your current working directory.
 
 Exit your current environment with:
